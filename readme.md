@@ -87,18 +87,18 @@ The application was built to solve a specific problem: bridging the gap between 
 graph TD
     UI[Flutter UI Layer] -->|Reads/Writes| Provider[State Management Layer]
     
-    subgraph "Service Layer"
-    AuthService
-    ChatService
-    SyncService
-    ConnectivityService
+    subgraph ServiceLayer[Service Layer]
+        AuthService[AuthService]
+        ChatService[ChatService]
+        SyncService[SyncService]
+        ConnectivityService[ConnectivityService]
     end
     
-    Provider -->|Calls| Service Layer
+    Provider -->|Calls| ServiceLayer
     
-    Service Layer -->|Writes/Reads| Hive[Hive Local DB]
-    Service Layer -->|REST API| Backend[Node.js Server]
-    Service Layer -->|Events| Socket[Socket.IO Gateway]
+    ServiceLayer -->|Writes/Reads| Hive[Hive Local DB]
+    ServiceLayer -->|REST API| Backend[Node.js Server]
+    ServiceLayer -->|Events| Socket[Socket.IO Gateway]
     
     ConnectivityService -->|Triggers| SyncService
     SyncService -->|Reads Queue| Hive
